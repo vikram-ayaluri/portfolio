@@ -20,7 +20,7 @@ const TransitionLink = ({
 }: Props) => {
     const router = useRouter();
 
-    const { contextSafe } = useGSAP(() => {});
+    const { contextSafe } = useGSAP(() => { });
 
     const handleLinkClick = contextSafe(
         async (e: React.MouseEvent<HTMLAnchorElement>) => {

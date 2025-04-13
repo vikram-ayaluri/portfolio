@@ -26,5 +26,6 @@ export interface IProject {
     images: string[];
     slug: string;
     liveUrl?: string;
+    contributions?: string[];
     sourceCode?: string;
 }

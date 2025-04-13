@@ -1,10 +1,16 @@
 import TransitionLink from '@/components/TransitionLink';
-import { cn } from '@/lib/utils';
+// import { cn } from '@/lib/utils';
 import { IProject } from '@/types';
 import { useGSAP } from '@gsap/react';
+
 import gsap from 'gsap';
-import Image from 'next/image';
+import Link from 'next/link';
+// import Image from 'next/image';
 import { useRef } from 'react';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+
 
 interface Props {
     index: number;
@@ -33,7 +39,7 @@ gsap.registerPlugin(useGSAP);
 const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
     const externalLinkSVGRef = useRef<SVGSVGElement>(null);
 
-    const { context, contextSafe } = useGSAP(() => {}, {
+    const { context, contextSafe } = useGSAP(() => { }, {
         scope: externalLinkSVGRef,
         revertOnUpdate: true,
     });
@@ -101,13 +107,13 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
     });
 
     return (
-        <TransitionLink
-            href={`/projects/${project.slug}`}
+        <Link
+            href={`${project.liveUrl}`}
             className="project-item group leading-none py-5 md:border-b first:!pt-0 last:pb-0 last:border-none md:group-hover/projects:opacity-30 md:hover:!opacity-100 transition-all"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {selectedProject === null && (
+            {/* {selectedProject === null && (
                 <Image
                     src={project.thumbnail}
                     alt="Project"
@@ -119,7 +125,7 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
                     key={project.slug}
                     loading="lazy"
                 />
-            )}
+            )} */}
             <div className="flex gap-2 md:gap-5">
                 <div className="font-anton text-muted-foreground">
                     _{(index + 1).toString().padStart(2, '0')}.
@@ -149,9 +155,8 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
                             </svg>
                         </span>
                     </h4>
-                    <div className="mt-2 flex flex-wrap gap-3 text-muted-foreground text-xs">
+                    <div className="mt-2 mb-3    flex flex-wrap gap-3 text-muted-foreground text-s">
                         {project.techStack
-                            .slice(0, 3)
                             .map((tech, idx, stackArr) => (
                                 <div
                                     className="gap-3 flex items-center"
@@ -164,10 +169,75 @@ const Project = ({ index, project, selectedProject, onMouseEnter }: Props) => {
                                 </div>
                             ))}
                     </div>
+
+                    <div className="max-w-[635px] space-y-7 pb-20 mx-auto">
+                        {/* <div className="fade-in-later">
+                                                    <p className="text-muted-foreground font-anton mb-3">
+                                                        Year
+                                                    </p>
+                    
+                                                    <div className="text-lg">{project.year}</div>
+                                                </div> */}
+                        {/* <div className="fade-in-later">
+                                                    <p className="text-muted-foreground font-anton mb-3">
+                                                        Tech & Technique
+                                                    </p>
+                    
+                                                    <div className="text-lg">
+                                                        {project.techStack.join(', ')}
+                                                    </div>
+                                                </div> */}
+                        <div className="fade-in-later">
+                            <p className="text-muted-foreground font-anton mb-3">
+                                Description
+                            </p>
+
+                            <div className="text-base">
+                                <Markdown
+                                    className="markdown-text"
+                                    remarkPlugins={[remarkGfm]}
+                                >
+                                    {project.description}
+                                </Markdown>
+                            </div>
+
+                            <div className="text-base ml-6">
+                                {/* <Markdown
+                                                            className="markdown-text"
+                                                            remarkPlugins={[remarkGfm]}
+                                                        >
+
+                                                            
+                                                        </Markdown> */}
+
+                                <ul className='list-disc'>
+                                    {project.contributions?.map((value, index) => {
+                                        return <li key={index}>{value}</li>
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        {/* {project.role && (
+                                                    <div className="fade-in-later">
+                                                        <p className="text-muted-foreground font-anton mb-3">
+                                                            My Role
+                                                        </p>
+                    
+                                                        <div className="text-lg">
+                                                            <Markdown
+                                                                className="markdown-text"
+                                                                remarkPlugins={[remarkGfm]}
+                                                            >
+                                                                {project.role}
+                                                            </Markdown>
+                                                        </div>
+                                                    </div>
+                                                )} */}
+                    </div>
                 </div>
             </div>
-        </TransitionLink>
+        </Link>
     );
-};
+}
 
 export default Project;

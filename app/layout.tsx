@@ -11,7 +11,6 @@ import Navbar from '@/components/Navbar';
 import CustomCursor from '@/components/CustomCursor';
 import Preloader from '../components/Preloader';
 import StickyEmail from './_components/StickyEmail';
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 const antonFont = Anton({
     weight: '400',
@@ -28,8 +27,8 @@ const robotoFlex = Roboto_Flex({
 });
 
 export const metadata: Metadata = {
-    title: 'Portfolio - Tajmirul Islam',
-    description: 'Personal portfolio of Tajmirul Islam',
+    title: 'Portfolio - Vikram Ayaluri',
+    description: 'Personal portfolio of Vikram Ayaluri',
 };
 
 export default function RootLayout({
@@ -39,7 +38,6 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <GoogleAnalytics gaId="G-MHLY1LNGY5" />
             <body
                 className={`${antonFont.variable} ${robotoFlex.variable} antialiased`}
             >

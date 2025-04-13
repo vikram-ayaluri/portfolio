@@ -56,7 +56,7 @@ const Experiences = () => {
             <div className="container" ref={containerRef}>
                 <SectionTitle title="My Experience" />
 
-                <div className="grid gap-14">
+                <div className="grid gap-14 max-w-[700px]">
                     {MY_EXPERIENCE.map((item) => (
                         <div key={item.title} className="experience-item">
                             <p className="text-xl text-muted-foreground">
@@ -65,9 +65,18 @@ const Experiences = () => {
                             <p className="text-5xl font-anton leading-none mt-3.5 mb-2.5">
                                 {item.title}
                             </p>
-                            <p className="text-lg text-muted-foreground">
+                            <p className="text-base text-muted-foreground">
                                 {item.duration}
                             </p>
+                            <br />
+                            <ul className='list-disc ml-6'>
+                                {item.points.map((point, idx) => {
+                                    return <li key={idx} className="text-base text-muted-foreground">
+                                        {point}
+                                    </li>
+                                })}
+
+                            </ul>
                         </div>
                     ))}
                 </div>
